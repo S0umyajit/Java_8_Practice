@@ -1,7 +1,9 @@
 package test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class Prac8 {
     public static void main(String[] args) {
@@ -20,5 +22,14 @@ public class Prac8 {
                 .mapToInt(Integer::intValue)
                 .sum();
         System.out.println(sum1);
+
+
+        Optional<Integer> max = li.stream()
+                .max(Comparator.comparing(Integer::intValue));
+        System.out.println(max);
+
+        Optional<Integer> max1 = li.stream()
+                .max(Integer::compareTo);
+        System.out.println(max1);
     }
 }
