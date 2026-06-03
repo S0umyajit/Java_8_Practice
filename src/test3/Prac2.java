@@ -1,10 +1,10 @@
 package test3;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.OptionalDouble;
 
-public class Prac1 {
+public class Prac2 {
     public static void main(String[] args) {
 
         List<Employee> employees = Arrays.asList(
@@ -16,11 +16,10 @@ public class Prac1 {
                 new Employee(106, "Frank", 50, "Finance", 120000.0)
         );
 
-        List<Employee> list = employees.stream()
-                .sorted(Comparator.comparing(Employee::getSalary))
-                .toList();
-        System.out.println(list);
+        OptionalDouble average = employees.stream()
+                .mapToInt(Employee::getAge)
+                .average();
 
-
+        System.out.println(average.getAsDouble());
     }
 }
