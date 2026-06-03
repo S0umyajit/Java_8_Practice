@@ -1,12 +1,12 @@
 package test5;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Test {
+public class Test2 {
     public static void main(String[] args) {
+
         List<Employee> employees = Arrays.asList(
                 new Employee(101, "Alice", 28, "HR", 60000),
                 new Employee(102, "Bob", 32, "IT", 85000),
@@ -32,13 +32,15 @@ public class Test {
                 new Employee(120, "Tina", 39, "Finance", 102000)
         );
 
-        Map<Integer, String> collect = employees.stream()
-                .collect(Collectors.toMap(
-                        Employee::getId,
-                        Employee::getName,
-                        (existingValue,newValue)->existingValue /// keep existing value for duplicate key
-                ));
 
-        System.out.println(collect);
+        Map<Character, Long> collect = employees.stream()
+                .map(e -> e.getName().charAt(0))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        Optional<Map.Entry<Character, Long>> max = collect.entrySet()
+                .stream()
+                .max(Comparator.comparing(Map.Entry::getValue));
+
+        System.out.println(max);
     }
 }
