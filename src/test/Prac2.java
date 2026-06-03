@@ -11,5 +11,11 @@ public class Prac2 {
                 .filter(n->n%2==0)
                 .toList();
         System.out.println(evenNum);
+
+        List<Integer> oddNum=list.stream()
+                .filter(n->n%2!=0)
+                .toList();
+
+        System.out.println(oddNum);
     }
 }
