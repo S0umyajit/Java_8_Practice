@@ -35,6 +35,7 @@ public class Top3Word {
         List<Long> topFrequency = sortedList.stream()
                 .map(Map.Entry::getValue)
                 .distinct()
+                .limit(3)
                 .toList();
         System.out.println(topFrequency);
 
