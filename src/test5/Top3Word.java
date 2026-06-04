@@ -11,18 +11,37 @@ import java.util.stream.Stream;
 public class Top3Word {
     public static void main(String[] args) {
 
-        String s="Java is great. Java is object oriented. Java streams are powerful, and Java is fun, are";
+        String s="Java is great. Java is object oriented. Java streams are powerful, and Java is fun";
         Map<String, Long> collect = Arrays.stream(s.toLowerCase()
                         .replaceAll("[^a-z\\s]", "")
                         .split(" "))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
 
-        List<Map.Entry<String, Long>> list = collect.entrySet()
+//        List<Map.Entry<String, Long>> list = collect.entrySet()
+//                .stream()
+//                .sorted(Comparator.comparing((Map.Entry<String, Long> entry) -> entry.getValue()).reversed())
+//                .limit(3)
+//                .toList();
+//        System.out.println(list);
+
+        List<Map.Entry<String, Long>> sortedList = collect.entrySet()
                 .stream()
                 .sorted(Comparator.comparing((Map.Entry<String, Long> entry) -> entry.getValue()).reversed())
-                .limit(3)
                 .toList();
+
+        System.out.println(sortedList);
+
+        List<Long> topFrequency = sortedList.stream()
+                .map(Map.Entry::getValue)
+                .distinct()
+                .toList();
+        System.out.println(topFrequency);
+
+        List<Map.Entry<String, Long>> list = sortedList.stream()
+                .filter(e -> topFrequency.contains(e.getValue()))
+                .toList();
+
         System.out.println(list);
     }
 }
